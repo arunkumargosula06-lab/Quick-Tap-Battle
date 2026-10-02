@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Quick Tap Battle</title>
+  <title>Quick Tap Battle — Party Arena</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -13,235 +13,359 @@
 
 <body>
 
-  <div class="game">
+<div class="game">
 
-    <!-- MAIN MENU -->
-    <section id="menu" class="screen active">
-      <div class="logo">⚡ QUICK TAP</div>
-      <div class="subtitle">BATTLE</div>
+  <!-- ================= MENU ================= -->
 
-      <p class="tagline">
-        Tap fast. Score more. Beat everyone.
-      </p>
+  <section id="menu" class="screen active">
 
-      <button onclick="showScreen('create')">
-        CREATE GAME
-      </button>
+    <div class="logo">⚡ QUICK TAP</div>
+    <div class="subtitle">PARTY ARENA</div>
 
-      <button class="secondary" onclick="showScreen('join')">
-        JOIN GAME
-      </button>
-    </section>
+    <p class="tagline">
+      2–8 players • 5 rounds • One winner
+    </p>
 
+    <button onclick="showScreen('create')">
+      CREATE GAME
+    </button>
 
-    <!-- CREATE GAME -->
-    <section id="create" class="screen">
+    <button class="secondary" onclick="showScreen('join')">
+      JOIN GAME
+    </button>
 
-      <h1>CREATE GAME</h1>
-
-      <div class="room-card">
-        <span>YOUR ROOM CODE</span>
-        <strong id="generatedCode">------</strong>
-      </div>
-
-      <input
-        id="hostName"
-        placeholder="Your nickname"
-        maxlength="15"
-      >
-
-      <button onclick="createRoom()">
-        CREATE ROOM
-      </button>
-
-      <button
-        class="secondary"
-        onclick="showScreen('menu')"
-      >
-        BACK
-      </button>
-
-    </section>
+  </section>
 
 
-    <!-- JOIN GAME -->
-    <section id="join" class="screen">
+  <!-- ================= CREATE ================= -->
 
-      <h1>JOIN GAME</h1>
+  <section id="create" class="screen">
 
-      <input
-        id="roomInput"
-        placeholder="ROOM CODE"
-        maxlength="6"
-      >
+    <h1>CREATE GAME</h1>
 
-      <input
-        id="playerName"
-        placeholder="Your nickname"
-        maxlength="15"
-      >
+    <p class="section-help">
+      Create a room and invite your friends.
+    </p>
 
-      <button onclick="joinRoom()">
-        JOIN BATTLE
-      </button>
+    <div class="room-card">
 
-      <button
-        class="secondary"
-        onclick="showScreen('menu')"
-      >
-        BACK
-      </button>
+      <span>YOUR ROOM CODE</span>
 
-    </section>
+      <strong id="generatedCode">
+        ------
+      </strong>
 
+    </div>
 
-    <!-- LOBBY -->
-    <section id="lobby" class="screen">
+    <input
+      id="hostName"
+      placeholder="Your nickname"
+      maxlength="15"
+    >
 
-      <div class="topbar">
-        <span>ROOM</span>
-        <strong id="lobbyCode">------</strong>
-      </div>
+    <button onclick="createRoom()">
+      CREATE ROOM ⚡
+    </button>
 
-      <h1>PLAYER LOBBY</h1>
+    <button
+      class="secondary"
+      onclick="showScreen('menu')"
+    >
+      BACK
+    </button>
 
-      <div id="players" class="players"></div>
-
-      <p id="waitingMessage">
-        Waiting for players...
-      </p>
-
-      <button onclick="startGame()">
-        START BATTLE ⚔️
-      </button>
-
-    </section>
+  </section>
 
 
-    <!-- COUNTDOWN -->
-    <section id="countdown" class="screen">
+  <!-- ================= JOIN ================= -->
 
-      <p>GET READY!</p>
+  <section id="join" class="screen">
 
-      <div id="countNumber" class="count">
-        3
-      </div>
+    <h1>JOIN GAME</h1>
 
-    </section>
+    <p class="section-help">
+      Enter the room code from your host.
+    </p>
 
+    <input
+      id="roomInput"
+      placeholder="ROOM CODE"
+      maxlength="6"
+      style="text-transform: uppercase;"
+    >
 
-    <!-- GAME -->
-    <section id="game" class="screen game-screen">
+    <input
+      id="playerName"
+      placeholder="Your nickname"
+      maxlength="15"
+    >
 
-      <div class="game-header">
+    <button onclick="joinRoom()">
+      JOIN BATTLE 🎮
+    </button>
 
-        <div>
-          <small>ROUND</small>
-          <strong id="roundNumber">
-            1 / 10
-          </strong>
-        </div>
+    <button
+      class="secondary"
+      onclick="showScreen('menu')"
+    >
+      BACK
+    </button>
 
-        <div>
-          <small>TIME</small>
-          <strong id="timer">
-            8.0
-          </strong>
-        </div>
-
-        <div>
-          <small>SCORE</small>
-          <strong id="score">
-            0
-          </strong>
-        </div>
-
-      </div>
-
-      <p class="instruction">
-        TAP THE TARGET!
-      </p>
-
-      <div id="arena">
-
-        <button
-          id="target"
-          onclick="tapTarget()"
-        >
-          🎯
-        </button>
-
-      </div>
-
-    </section>
+  </section>
 
 
-    <!-- RESULTS -->
-    <section id="results" class="screen">
+  <!-- ================= LOBBY ================= -->
 
-      <div class="trophy">
-        🏆
-      </div>
+  <section id="lobby" class="screen">
 
-      <h1>BATTLE COMPLETE</h1>
+    <div class="topbar">
 
-      <div class="winner">
+      <span>ROOM</span>
 
-        <span>WINNER</span>
+      <strong id="lobbyCode">
+        ------
+      </strong>
 
-        <strong id="winnerName">
-          YOU
+    </div>
+
+    <h1>PLAYER LOBBY</h1>
+
+    <p class="section-help">
+      Waiting for your battle squad...
+    </p>
+
+    <div id="players" class="players"></div>
+
+    <p id="waitingMessage">
+      Waiting for players...
+    </p>
+
+    <div class="rules-card">
+
+      <h3>⚔️ BATTLE RULES</h3>
+
+      <p>🎯 5 rounds</p>
+      <p>⚡ Fastest reactions score more</p>
+      <p>🏆 Highest total score wins</p>
+
+    </div>
+
+    <button onclick="startGame()">
+      START BATTLE ⚔️
+    </button>
+
+    <button
+      class="secondary"
+      onclick="showScreen('menu')"
+    >
+      LEAVE ROOM
+    </button>
+
+  </section>
+
+
+  <!-- ================= COUNTDOWN ================= -->
+
+  <section id="countdown" class="screen">
+
+    <p class="eyebrow">
+      GET READY
+    </p>
+
+    <div id="countNumber" class="count">
+      3
+    </div>
+
+    <p id="countMessage">
+      The battle is about to begin...
+    </p>
+
+  </section>
+
+
+  <!-- ================= GAME ================= -->
+
+  <section id="game" class="screen game-screen">
+
+    <div class="game-header">
+
+      <div>
+        <small>ROUND</small>
+
+        <strong id="roundNumber">
+          1 / 5
         </strong>
-
-        <b id="finalScore">
-          0 POINTS
-        </b>
-
       </div>
 
-      <div class="leaderboard">
+      <div>
+        <small>TIME</small>
 
-        <div>
-          🥇
-          <span id="resultPlayer">
-            You
+        <strong id="timer">
+          8.0
+        </strong>
+      </div>
+
+      <div>
+        <small>SCORE</small>
+
+        <strong id="score">
+          0
+        </strong>
+      </div>
+
+    </div>
+
+
+    <div class="round-title">
+
+      <span id="roundBadge">
+        ROUND 1
+      </span>
+
+      <h2 id="roundTitle">
+        TAP RUSH
+      </h2>
+
+      <p id="roundInstruction">
+        Tap the target as fast as you can!
+      </p>
+
+    </div>
+
+
+    <div id="arena">
+
+      <button
+        id="target"
+        onclick="tapTarget()"
+      >
+        🎯
+      </button>
+
+    </div>
+
+
+    <div class="live-status">
+
+      <span id="actionStatus">
+        WAITING FOR TARGET...
+      </span>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= RESULTS ================= -->
+
+  <section id="results" class="screen">
+
+    <div class="trophy">
+      🏆
+    </div>
+
+    <p class="eyebrow">
+      BATTLE FINISHED
+    </p>
+
+    <h1>FINAL RESULTS</h1>
+
+    <div class="winner">
+
+      <span>🏆 WINNER</span>
+
+      <strong id="winnerName">
+        --
+      </strong>
+
+      <b id="finalScore">
+        0 POINTS
+      </b>
+
+    </div>
+
+
+    <div class="leaderboard">
+
+      <div class="leaderboard-title">
+        <span>FINAL LEADERBOARD</span>
+      </div>
+
+
+      <div id="leaderboardRows">
+
+        <div class="leader-row">
+
+          <span class="rank">
+            🥇
           </span>
 
-          <b id="resultScore">
+          <span class="leader-name">
+            Waiting...
+          </span>
+
+          <b class="leader-score">
             0
           </b>
+
         </div>
 
-        <div>
-          🥈
-          <span>Player 2</span>
-          <b>0</b>
+
+        <div class="leader-row">
+
+          <span class="rank">
+            🥈
+          </span>
+
+          <span class="leader-name">
+            Waiting...
+          </span>
+
+          <b class="leader-score">
+            0
+          </b>
+
         </div>
 
-        <div>
-          🥉
-          <span>Player 3</span>
-          <b>0</b>
+
+        <div class="leader-row">
+
+          <span class="rank">
+            🥉
+          </span>
+
+          <span class="leader-name">
+            Waiting...
+          </span>
+
+          <b class="leader-score">
+            0
+          </b>
+
         </div>
 
       </div>
 
-      <button onclick="playAgain()">
-        PLAY AGAIN
-      </button>
+    </div>
 
-      <button
-        class="secondary"
-        onclick="showScreen('menu')"
-      >
-        NEW ROOM
-      </button>
 
-    </section>
+    <button onclick="playAgain()">
+      PLAY AGAIN 🔄
+    </button>
 
-  </div>
+    <button
+      class="secondary"
+      onclick="showScreen('menu')"
+    >
+      NEW ROOM
+    </button>
 
-  <script src="script.js"></script>
+  </section>
+
+</div>
+
+
+<script src="script.js"></script>
 
 </body>
 </html>
