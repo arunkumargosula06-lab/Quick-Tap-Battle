@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Quick Tap Battle</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="game">
+
+    <!-- MAIN MENU -->
+    <section id="menu" class="screen active">
+      <div class="logo">⚡ QUICK TAP</div>
+      <div class="subtitle">BATTLE</div>
+
+      <p class="tagline">
+        Tap fast. Score more. Beat everyone.
+      </p>
+
+      <button onclick="showScreen('create')">
+        CREATE GAME
+      </button>
+
+      <button class="secondary" onclick="showScreen('join')">
+        JOIN GAME
+      </button>
+    </section>
+
+
+    <!-- CREATE GAME -->
+    <section id="create" class="screen">
+
+      <h1>CREATE GAME</h1>
+
+      <div class="room-card">
+        <span>YOUR ROOM CODE</span>
+        <strong id="generatedCode">------</strong>
+      </div>
+
+      <input
+        id="hostName"
+        placeholder="Your nickname"
+        maxlength="15"
+      >
+
+      <button onclick="createRoom()">
+        CREATE ROOM
+      </button>
+
+      <button
+        class="secondary"
+        onclick="showScreen('menu')"
+      >
+        BACK
+      </button>
+
+    </section>
+
+
+    <!-- JOIN GAME -->
+    <section id="join" class="screen">
+
+      <h1>JOIN GAME</h1>
+
+      <input
+        id="roomInput"
+        placeholder="ROOM CODE"
+        maxlength="6"
+      >
+
+      <input
+        id="playerName"
+        placeholder="Your nickname"
+        maxlength="15"
+      >
+
+      <button onclick="joinRoom()">
+        JOIN BATTLE
+      </button>
+
+      <button
+        class="secondary"
+        onclick="showScreen('menu')"
+      >
+        BACK
+      </button>
+
+    </section>
+
+
+    <!-- LOBBY -->
+    <section id="lobby" class="screen">
+
+      <div class="topbar">
+        <span>ROOM</span>
+        <strong id="lobbyCode">------</strong>
+      </div>
+
+      <h1>PLAYER LOBBY</h1>
+
+      <div id="players" class="players"></div>
+
+      <p id="waitingMessage">
+        Waiting for players...
+      </p>
+
+      <button onclick="startGame()">
+        START BATTLE ⚔️
+      </button>
+
+    </section>
+
+
+    <!-- COUNTDOWN -->
+    <section id="countdown" class="screen">
+
+      <p>GET READY!</p>
+
+      <div id="countNumber" class="count">
+        3
+      </div>
+
+    </section>
+
+
+    <!-- GAME -->
+    <section id="game" class="screen game-screen">
+
+      <div class="game-header">
+
+        <div>
+          <small>ROUND</small>
+          <strong id="roundNumber">
+            1 / 10
+          </strong>
+        </div>
+
+        <div>
+          <small>TIME</small>
+          <strong id="timer">
+            8.0
+          </strong>
+        </div>
+
+        <div>
+          <small>SCORE</small>
+          <strong id="score">
+            0
+          </strong>
+        </div>
+
+      </div>
+
+      <p class="instruction">
+        TAP THE TARGET!
+      </p>
+
+      <div id="arena">
+
+        <button
+          id="target"
+          onclick="tapTarget()"
+        >
+          🎯
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- RESULTS -->
+    <section id="results" class="screen">
+
+      <div class="trophy">
+        🏆
+      </div>
+
+      <h1>BATTLE COMPLETE</h1>
+
+      <div class="winner">
+
+        <span>WINNER</span>
+
+        <strong id="winnerName">
+          YOU
+        </strong>
+
+        <b id="finalScore">
+          0 POINTS
+        </b>
+
+      </div>
+
+      <div class="leaderboard">
+
+        <div>
+          🥇
+          <span id="resultPlayer">
+            You
+          </span>
+
+          <b id="resultScore">
+            0
+          </b>
+        </div>
+
+        <div>
+          🥈
+          <span>Player 2</span>
+          <b>0</b>
+        </div>
+
+        <div>
+          🥉
+          <span>Player 3</span>
+          <b>0</b>
+        </div>
+
+      </div>
+
+      <button onclick="playAgain()">
+        PLAY AGAIN
+      </button>
+
+      <button
+        class="secondary"
+        onclick="showScreen('menu')"
+      >
+        NEW ROOM
+      </button>
+
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
