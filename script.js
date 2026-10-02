@@ -4,8 +4,8 @@
 // ========================================
 
 // 👇 Supabase Connect page నుంచి ఇవి రెండూ పెట్టు.
-const SUPABASE_URL = "PASTE_YOUR_PROJECT_URL_HERE";
-const SUPABASE_KEY = "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+const SUPABASE_URL = "https://edcbsnurayxhzdhcugcz.supabase.co";
+const SUPABASE_KEY = "sb_publishable_MrQ_wbVmZ1wYlMpqF1jrjA_6y1aix6S";
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
