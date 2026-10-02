@@ -1,0 +1,295 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: white;
+  background:
+    radial-gradient(circle at 50% 0%, #29358f 0%, transparent 40%),
+    #070916;
+}
+
+.game {
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.screen {
+  display: none;
+  width: min(900px, 100%);
+  min-height: 600px;
+  padding: 35px 25px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 28px;
+  background: rgba(17,20,48,.94);
+  box-shadow: 0 25px 80px rgba(0,0,0,.5);
+  text-align: center;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  font-size: clamp(42px, 9vw, 78px);
+  font-weight: 900;
+  letter-spacing: -3px;
+}
+
+.subtitle {
+  font-size: clamp(30px, 7vw, 55px);
+  font-weight: 900;
+  letter-spacing: 8px;
+}
+
+.tagline {
+  margin: 18px 0 35px;
+  color: #aeb5d5;
+  font-size: 17px;
+}
+
+h1 {
+  margin-bottom: 30px;
+  font-size: clamp(30px, 6vw, 50px);
+}
+
+button {
+  width: min(360px, 90%);
+  margin: 8px;
+  padding: 17px 25px;
+  border: 0;
+  border-radius: 15px;
+  background: #ffffff;
+  color: #10132b;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .15s;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(255,255,255,.2);
+}
+
+button:active {
+  transform: scale(.96);
+}
+
+button.secondary {
+  color: white;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+input {
+  width: min(360px, 90%);
+  margin: 8px;
+  padding: 17px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 15px;
+  outline: none;
+  background: rgba(0,0,0,.3);
+  color: white;
+  text-align: center;
+  font-size: 17px;
+}
+
+input:focus {
+  border-color: white;
+}
+
+.room-card {
+  width: min(400px, 90%);
+  margin-bottom: 18px;
+  padding: 25px;
+  border-radius: 20px;
+  background: rgba(255,255,255,.07);
+}
+
+.room-card span {
+  display: block;
+  margin-bottom: 10px;
+  color: #aeb5d5;
+  font-size: 13px;
+}
+
+.room-card strong {
+  font-size: 42px;
+  letter-spacing: 8px;
+}
+
+.topbar {
+  width: 100%;
+  margin-bottom: 25px;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 14px;
+  background: rgba(255,255,255,.06);
+}
+
+.topbar span {
+  color: #aeb5d5;
+}
+
+.topbar strong {
+  letter-spacing: 4px;
+}
+
+.players {
+  width: min(700px, 100%);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.player-card {
+  min-height: 120px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.07);
+}
+
+.player-card.empty {
+  opacity: .4;
+}
+
+.avatar {
+  font-size: 32px;
+}
+
+.player-card small {
+  opacity: .55;
+  font-size: 10px;
+}
+
+#waitingMessage {
+  margin-bottom: 15px;
+  color: #aeb5d5;
+}
+
+.count {
+  font-size: clamp(120px, 25vw, 220px);
+  font-weight: 900;
+  text-shadow: 0 0 45px rgba(255,255,255,.4);
+}
+
+.game-screen {
+  padding: 20px;
+}
+
+.game-header {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.game-header div {
+  padding: 13px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.07);
+}
+
+.game-header small {
+  display: block;
+  color: #aeb5d5;
+  font-size: 11px;
+}
+
+.game-header strong {
+  font-size: 22px;
+}
+
+.instruction {
+  margin-bottom: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+#arena {
+  position: relative;
+  width: 100%;
+  height: 430px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 25px;
+  background:
+    radial-gradient(circle, rgba(255,255,255,.08) 1px, transparent 1px);
+  background-size: 25px 25px;
+}
+
+#target {
+  position: absolute;
+  width: 95px;
+  height: 95px;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 40px;
+  background: white;
+  box-shadow: 0 0 35px rgba(255,255,255,.55);
+  transform: translate(-50%, -50%);
+}
+
+.trophy {
+  margin-bottom: 10px;
+  font-size: 85px;
+}
+
+.winner {
+  width: min(400px, 90%);
+  margin-bottom: 25px;
+  padding: 25px;
+  border-radius: 20px;
+  background: rgba(255,255,255,.07);
+}
+
+.winner span {
+  display: block;
+  color: #aeb5d5;
+  font-size: 13px;
+}
+
+.winner strong {
+  display: block;
+  margin: 8px;
+  font-size: 35px;
+}
+
+.leaderboard {
+  width: min(500px, 90%);
+  margin-bottom: 20px;
+}
+
+.leaderboard div {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 18px;
+  margin: 7px 0;
+  border-radius: 12px;
+  background: rgba(255,255,255,.06);
+}
+
+@media (max-width: 600px) {
+  .screen {
+    min-height: 90vh;
+    padding: 25px 15
