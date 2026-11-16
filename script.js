@@ -63,7 +63,7 @@ function startCountdown(startRoundNumber){
 }
 async function broadcastRound(roundNumber){const x=12+Math.random()*76,y=15+Math.random()*70;await channel.send({type:"broadcast",event:"round-start",payload:{round:roundNumber,x,y}});startRound(roundNumber,x,y);}
 function startRound(roundNumber,x,y){
- round=roundNumber;hasTapped=false;timer=ROUND_SECONDS;showScreen("game");document.getElementById("roundNumber").textContent=`${round} / ${TOTAL_ROUNDS}`;document.getElementById("timer").textContent=timer.toFixed(1);
+ round=roundNumber;hasTapped=false;timer=ROUND_SECONDS;showScreen("game");document.getElementById("roundNumber").textContent=`${round} / ${TOTAL_ROUNDS}`;document.getElementById("roundBadge").textContent=`ROUND ${round}`;document.getElementById("timer").textContent=timer.toFixed(1);
  document.getElementById("roundTitle").textContent="TAP RUSH";document.getElementById("roundInstruction").textContent="Tap the target as fast as you can!";
  const target=document.getElementById("target");target.textContent="🎯";target.style.left=`${x}%`;target.style.top=`${y}%`;setStatus("TAP THE TARGET!");
  clearInterval(timerInterval);const started=Date.now();timerInterval=setInterval(()=>{timer=Math.max(0,ROUND_SECONDS-(Date.now()-started)/1000);document.getElementById("timer").textContent=timer.toFixed(1);if(timer<=0)endRound();},50);
